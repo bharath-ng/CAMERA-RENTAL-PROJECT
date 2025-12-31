@@ -1,0 +1,42 @@
+.user-choice {
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-choice-content {
+  text-align: center;
+  color: white;
+}
+
+.user-choice-content h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.user-choice-content p {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.user-choice-buttons button {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 12px 22px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.user-choice-buttons button:hover {
+  background: white;
+  color: black;
+}

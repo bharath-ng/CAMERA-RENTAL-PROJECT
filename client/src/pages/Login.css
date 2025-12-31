@@ -1,0 +1,48 @@
+
+
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #1e90ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.login-box a {
+  color: #00bfff;
+  text-decoration: none;
+}
+
+.login-page {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url("../assets/login-bg.jpg");
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-box {
+  background: rgba(255,255,255,0.12);
+  padding: 30px;
+  width: 350px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
