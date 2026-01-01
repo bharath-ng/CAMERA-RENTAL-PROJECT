@@ -1,47 +1,74 @@
-import { useState, useContext } from "react";
-import { loginUser } from "../services/api";
-import { AuthContext } from "../context/AuthContext";
-import { useNavigate, Link } from "react-router-dom";
-import "./Login.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import API from "../api";
 
-export default function Login() {
-  const [phone, setPhone] = useState("");
-  const [location, setLocation] = useState("");
-  const { login } = useContext(AuthContext);
+function Login() {
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    location: "",
+    identifier: ""
+  });
+
+  const [isRegister, setIsRegister] = useState(false);
   const navigate = useNavigate();
 
-  const submit = async () => {
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const register = async () => {
     try {
-      const res = await loginUser({ phone, location });
-      login(res.data);
-      alert("✅ Login successful");
+      const res = await API.post("/api/auth/register", form);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       navigate("/home");
     } catch {
-      alert("❌ Invalid phone or location");
+      alert("Registration failed");
+    }
+  };
+
+  const login = async () => {
+    try {
+      const res = await API.post("/api/auth/login", {
+        identifier: form.identifier
+      });
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      navigate("/home");
+    } catch {
+      alert("Login failed");
     }
   };
 
   return (
-    <div className="login-page">
-      <div className="login-box">
-        <h2>Login</h2>
+    <div>
+      <h2>{isRegister ? "Register" : "Login"}</h2>
 
+      {isRegister && (
+        <>
+          <input name="name" placeholder="Name" onChange={handleChange} />
+          <input name="phone" placeholder="Phone" onChange={handleChange} />
+          <input name="email" placeholder="Email" onChange={handleChange} />
+          <input name="location" placeholder="Location" onChange={handleChange} />
+        </>
+      )}
+
+      {!isRegister && (
         <input
-          placeholder="Phone Number"
-          onChange={(e) => setPhone(e.target.value)}
+          name="identifier"
+          placeholder="Email or Phone"
+          onChange={handleChange}
         />
+      )}
 
-        <input
-          placeholder="Location"
-          onChange={(e) => setLocation(e.target.value)}
-        />
+      <button onClick={isRegister ? register : login}>
+        {isRegister ? "Register" : "Login"}
+      </button>
 
-        <button onClick={submit}>Login</button>
-
-        <p>
-          New user? <Link to="/register">Register here</Link>
-        </p>
-      </div>
+      <p onClick={() => setIsRegister(!isRegister)}>
+        {isRegister ? "Already have an account? Login" : "New user? Register"}
+      </p>
     </div>
   );
 }
+
+export default Login;

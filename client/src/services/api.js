@@ -2,7 +2,7 @@ import axios from "axios";
 
 // ✅ Create axios instance for backend
 const API = axios.create({
-  baseURL: "http://localhost:5000"
+  baseURL: "https://camera-rental-backend.onrender.com"
 });
 
 // 🔐 AUTH APIs
